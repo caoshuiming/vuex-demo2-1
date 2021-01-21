@@ -9,6 +9,8 @@
       <br>
       小计：{{ item.subtotal }}
       <br>
+      <button :disabled="!item.count" @click="delFromCart(item)">减一</button>
+      <button @click="delAllCart(item)">都不要了</button>
     </li>
     <b>总计：{{ total }}</b>
   </ul>
@@ -24,6 +26,14 @@ export default {
         total+=item.subtotal;
       }
       return total;
+    }
+  },
+  methods:{
+    delFromCart(item){
+      this.$store.dispatch("cart/del", item)
+    },
+    delAllCart(item){
+      this.$store.dispatch("cart/allDel", item)
     }
   }
 };

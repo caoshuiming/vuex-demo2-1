@@ -17,6 +17,12 @@ const actions = {
       );
       commit("addItem", product);
     }
+  },
+  del({ commit }, item){
+    commit("delCount", item);
+  },
+  allDel({ commit }, item){
+    commit("delAllCount", item)
   }
 };
 
@@ -42,6 +48,16 @@ const mutations = {
       };
       state.items.push(itemPro);
     }
+  },
+  delCount(state, item){
+    item.count--;
+    item.subtotal-=item.price;
+    if(item.count === 0){
+      state.items.splice(state.items.indexOf(item), 1)
+    }
+  },
+  delAllCount(state, item){
+    state.items.splice(state.items.indexOf(item), 1)
   }
 };
 
