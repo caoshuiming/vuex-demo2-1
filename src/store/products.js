@@ -3,6 +3,7 @@ import shop from "../api/shop";
 // initial state
 const state = {
   all: [],
+  buyNum: 1
 };
 
 // getters
@@ -12,9 +13,9 @@ const mutations = {
   setAll(state, products) {
     state.all = products;
   },
-  deleteProductInventory(state, {id}) {
+  deleteProductInventory(state, {id, buyNum}) {
     const product = state.all.find(product => product.id === id);
-    product.inventory--;
+    product.inventory-=buyNum;
   },
   addProductInventory(state, {id, num}){
     const product = state.all.find(product => product.id === id);

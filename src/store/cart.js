@@ -8,14 +8,14 @@ const getters = {};
 
 // actions
 const actions = {
-  addProductToCard({ commit }, product) {
+  addProductToCard({ commit }, {product, buyNum}) {
     if (product.inventory > 0) {
       commit(
         "products/deleteProductInventory",
-        { id: product.id },
+        { id: product.id, buyNum:buyNum },
         { root: true }
       );
-      commit("addItem", product);
+      commit("addItem", {product:product, buyNum:buyNum});
     }
   },
   del({ commit }, item){
@@ -38,23 +38,23 @@ const actions = {
 
 // mutations
 const mutations = {
-  addItem(state,pro) {
+  addItem(state, {product, buyNum}) {
     let i = 0;
     for (let item of state.items) {
-      if (item.id === pro.id) {
-        item.count++;
-        item.subtotal+=pro.price;
+      if (item.id === product.id) {
+        item.count=item.count+buyNum;
+        item.subtotal+=product.price*buyNum;
         i = 1;
         break;
       }
     };
     if (i === 0) {
       const itemPro = {
-        id: pro.id,
-        title: pro.title,
-        price: pro.price,
-        count: 1,
-        subtotal: pro.price
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        count: buyNum,
+        subtotal: product.price*buyNum
       };
       state.items.push(itemPro);
     }
