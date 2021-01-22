@@ -15,6 +15,10 @@ const mutations = {
   deleteProductInventory(state, {id}) {
     const product = state.all.find(product => product.id === id);
     product.inventory--;
+  },
+  addProductInventory(state, {id, num}){
+    const product = state.all.find(product => product.id === id);
+    product.inventory+=num;
   }
 };
 

@@ -20,9 +20,19 @@ const actions = {
   },
   del({ commit }, item){
     commit("delCount", item);
+    commit(
+      "products/addProductInventory",
+      { id: item.id, num: 1 },
+      { root: true }
+    );
   },
   allDel({ commit }, item){
-    commit("delAllCount", item)
+    commit("delAllCount", item);
+    commit(
+      "products/addProductInventory",
+      { id: item.id, num: item.count },
+      { root: true }
+    );
   }
 };
 
