@@ -42,7 +42,7 @@ const mutations = {
     let i = 0;
     for (let item of state.items) {
       if (item.id === product.id) {
-        item.count=item.count+buyNum;
+        item.count=parseInt(item.count)+parseInt(buyNum);
         item.subtotal+=product.price*buyNum;
         i = 1;
         break;
